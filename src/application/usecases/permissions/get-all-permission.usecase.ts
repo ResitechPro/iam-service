@@ -1,0 +1,10 @@
+import { IPermissionsService } from 'src/core/abstracts/services';
+import { Permission } from 'src/core/entities';
+
+export class GetAllPermissionsUseCase {
+  constructor(private readonly permissionsService: IPermissionsService) {}
+
+  async execute(): Promise<Permission[]> {
+    return undefined;
+  }
+}
