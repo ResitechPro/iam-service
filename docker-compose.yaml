@@ -1,0 +1,36 @@
+services:
+  iam:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: development
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/app/src
+      - ./.env:/app/.env
+    environment:
+      NODE_ENV: development
+
+  postgres:
+    image: postgres
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: identityAndAccessManagement
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  local_pgdata:
+
+networks:
+  app-network:
+    driver: bridge
